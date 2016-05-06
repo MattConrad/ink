@@ -216,7 +216,14 @@ namespace Ink
 
             List<FlowBase.Argument> parameterNames = Parse (BracketedKnotDeclArguments);
 
-            var argNames = parameterNames.ConvertAll<string> (arg => arg.name);
+            //.NET Core doesn't support .ConvertAll()
+            //var argNames = parameterNames.ConvertAll<string> (arg => arg.name);
+            List<string> argNames = new List<string>();
+            foreach (var pn in parameterNames)
+            {
+                argNames.Add(pn.name);
+            }
+
 
             return new ExternalDeclaration (funcName, argNames);
         }

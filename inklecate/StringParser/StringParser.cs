@@ -110,8 +110,10 @@ namespace Ink
             object result = ParseObject(rule);
 			if (result == null) {
 				if (message == null) {
-                    message = rule.Method.Name;
-				}
+                    //.NET Core doesn't support Method.Name.
+                    //message = rule.Method.Name;
+                    message = RuntimeReflectionExtensions.GetMethodInfo(rule).Name;
+                }
 
                 string butSaw;
                 string lineRemainder = LineRemainder ();

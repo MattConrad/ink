@@ -14,7 +14,9 @@ namespace Ink
                 if (pluginName == "ChoiceListPlugin") {
                     _plugins.Add (new InkPlugin.ChoiceListPlugin ());
                 } else {
-                    throw new SystemException ("Plugin not found");
+                    //.NET Core doesn't support SystemException.
+                    //throw new SystemException ("Plugin not found");
+                    throw new Exception("Plugin not found");
                 }
             }
         }

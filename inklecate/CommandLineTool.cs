@@ -42,13 +42,16 @@ namespace Ink
                 "   -t:              Test mode - loads up test.ink\n"+
                 "   -s:              Stress test mode - generates test content and \n" +
                 "                    times compilation\n");
-            Environment.Exit (ExitCodeError);
+            //.NET Core doesn't support Environment.Exit (!)
+            //Environment.Exit (ExitCodeError);
+            return;
         }
-            
-		CommandLineTool(string[] args)
+
+        CommandLineTool(string[] args)
 		{
             if (ProcessArguments (args) == false) {
                 ExitWithUsageInstructions ();
+                return;
             }
 
             if (opts.testMode) {
@@ -57,6 +60,7 @@ namespace Ink
 
             if (opts.inputFile == null) {
                 ExitWithUsageInstructions ();
+                return;
             }
 
             if (opts.outputFile == null) {
@@ -91,7 +95,9 @@ namespace Ink
                 }
                 catch {
                     Console.WriteLine ("Could not open file '" + opts.inputFile+"'");
-                    Environment.Exit (ExitCodeError);
+                    //.NET Core doesn't support Environment.Exit (!)
+                    //Environment.Exit (ExitCodeError);
+                    return;
                 }
             }
 
@@ -150,24 +156,26 @@ namespace Ink
             PrintMessages (errors, ConsoleColor.Red);
 
             if (story == null) {
-				Environment.Exit (ExitCodeError);
-			}
-                
-            // JSON round trip testing
-//            if (opts.testMode) {
-//                var jsonStr = story.ToJsonString (indented:true);
-//                Console.WriteLine (jsonStr);
-//
-//                Console.WriteLine ("---------------------------------------------------");
-//
-//                var reloadedStory = new Runtime.Story (jsonStr);
-//                var newJsonStr = reloadedStory.ToJsonString (indented: true);
-//                Console.WriteLine (newJsonStr);
-//
-//                story = reloadedStory;
-//            }
+                //.NET Core doesn't support Environment.Exit (!)
+                //Environment.Exit (ExitCodeError);
+                return;
+            }
 
-			// Play mode
+            // JSON round trip testing
+            //            if (opts.testMode) {
+            //                var jsonStr = story.ToJsonString (indented:true);
+            //                Console.WriteLine (jsonStr);
+            //
+            //                Console.WriteLine ("---------------------------------------------------");
+            //
+            //                var reloadedStory = new Runtime.Story (jsonStr);
+            //                var newJsonStr = reloadedStory.ToJsonString (indented: true);
+            //                Console.WriteLine (newJsonStr);
+            //
+            //                story = reloadedStory;
+            //            }
+
+            // Play mode
             // Test mode may use "-tp" in commmand line args to specify that
             // the test script is also played
             if (opts.playMode) {
@@ -188,7 +196,9 @@ namespace Ink
                     File.WriteAllText (opts.outputFile, jsonStr, System.Text.Encoding.UTF8);
                 } catch {
                     Console.WriteLine ("Could write to output file '" + opts.outputFile+"'");
-                    Environment.Exit (ExitCodeError);
+                    //.NET Core doesn't support Environment.Exit (!)
+                    //Environment.Exit (ExitCodeError);
+                    return;
                 }
             }
         }
