@@ -85,7 +85,7 @@ namespace Ink.Runtime
         /// </summary>
         public VariablesState variablesState{ get { return state.variablesState; } }
 
-        internal ListDefinitionsOrigin listDefinitions {
+        public ListDefinitionsOrigin listDefinitions {
             get {
                 return _listDefinitions;
             }
@@ -106,7 +106,7 @@ namespace Ink.Runtime
         // Warning: When creating a Story using this constructor, you need to
         // call ResetState on it before use. Intended for compiler use only.
         // For normal use, use the constructor that takes a json string.
-        internal Story (Container contentContainer, List<Runtime.ListDefinition> lists = null)
+        public Story (Container contentContainer, List<Runtime.ListDefinition> lists = null)
 		{
 			_mainContentContainer = contentContainer;
 
@@ -408,7 +408,7 @@ namespace Ink.Runtime
             return sb.ToString ();
         }
 
-        internal Runtime.Object ContentAtPath(Path path)
+        public Runtime.Object ContentAtPath(Path path)
         {
             return mainContentContainer.ContentAtPath (path);
         }
@@ -1118,7 +1118,7 @@ namespace Ink.Runtime
         }
 
             
-        internal void ChoosePath(Path p)
+        public void ChoosePath(Path p)
         {
             state.SetChosenPath (p);
 
@@ -1217,7 +1217,7 @@ namespace Ink.Runtime
 
         // Evaluate a "hot compiled" piece of ink content, as used by the REPL-like
         // CommandLinePlayer.
-        internal Runtime.Object EvaluateExpression(Runtime.Container exprContainer)
+        public Runtime.Object EvaluateExpression(Runtime.Container exprContainer)
         {
             int startCallStackHeight = state.callStack.elements.Count;
 
@@ -1257,7 +1257,7 @@ namespace Ink.Runtime
         /// </summary>
         public bool allowExternalFunctionFallbacks { get; set; }
 
-        internal void CallExternalFunction(string funcName, int numberOfArguments)
+        public void CallExternalFunction(string funcName, int numberOfArguments)
         {
             ExternalFunction func = null;
             Container fallbackFunctionContainer = null;
@@ -2030,7 +2030,7 @@ namespace Ink.Runtime
             }
         }
 
-        internal Container mainContentContainer {
+        public Container mainContentContainer {
             get {
                 if (_temporaryEvaluationContainer) {
                     return _temporaryEvaluationContainer;

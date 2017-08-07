@@ -16,7 +16,7 @@ namespace Ink.Runtime
         /// <value>The parent.</value>
 		public Runtime.Object parent { get; set; }
 
-        internal Runtime.DebugMetadata debugMetadata { 
+        public Runtime.DebugMetadata debugMetadata { 
             get {
                 if (_debugMetadata == null) {
                     if (parent) {
@@ -37,7 +37,7 @@ namespace Ink.Runtime
         // for serialisation purposes at least.
         DebugMetadata _debugMetadata;
 
-        internal int? DebugLineNumberOfPath(Path path)
+        public int? DebugLineNumberOfPath(Path path)
         {
             if (path == null)
                 return null;
@@ -65,7 +65,7 @@ namespace Ink.Runtime
             return null;
         }
 
-		internal Path path 
+		public Path path 
 		{ 
 			get 
 			{
@@ -105,7 +105,7 @@ namespace Ink.Runtime
 		}
         Path _path;
 
-        internal Runtime.Object ResolvePath(Path path)
+        public Runtime.Object ResolvePath(Path path)
         {
             if (path.isRelative) {
 
@@ -124,7 +124,7 @@ namespace Ink.Runtime
             }
         }
 
-        internal Path ConvertPathToRelative(Path globalPath)
+        public Path ConvertPathToRelative(Path globalPath)
         {
             // 1. Find last shared ancestor
             // 2. Drill up using ".." style (actually represented as "^")
@@ -165,7 +165,7 @@ namespace Ink.Runtime
         }
 
         // Find most compact representation for a path, whether relative or global
-        internal string CompactPathString(Path otherPath)
+        public string CompactPathString(Path otherPath)
         {
             string globalPathStr = null;
             string relativePathStr = null;
@@ -184,7 +184,7 @@ namespace Ink.Runtime
                 return globalPathStr;
         }
 
-        internal Container rootContentContainer
+        public Container rootContentContainer
         {
             get 
             {
@@ -196,16 +196,16 @@ namespace Ink.Runtime
             }
         }
 
-		internal Object ()
+		public Object ()
 		{
 		}
 
-        internal virtual Object Copy()
+        public virtual Object Copy()
         {
             throw new System.NotImplementedException (GetType ().Name + " doesn't support copying");
         }
 
-        internal void SetChild<T>(ref T obj, T value) where T : Runtime.Object
+        public void SetChild<T>(ref T obj, T value) where T : Runtime.Object
         {
             if (obj)
                 obj.parent = null;

@@ -58,7 +58,7 @@ namespace Ink.Runtime
             return 0;
         }
 
-		internal int callstackDepth {
+		public int callstackDepth {
 			get {
 				return callStack.depth;
 			}
@@ -68,8 +68,8 @@ namespace Ink.Runtime
         // When adding state, update the Copy method, and serialisation.
         // REMEMBER! REMEMBER! REMEMBER!
 
-        internal List<Runtime.Object> outputStream { get { return _outputStream; } }
-		internal List<Choice> currentChoices { 
+        public List<Runtime.Object> outputStream { get { return _outputStream; } }
+		public List<Choice> currentChoices { 
 			get { 
 				// If we can continue generating text content rather than choices,
 				// then we reflect the choice list as being empty, since choices
@@ -78,26 +78,26 @@ namespace Ink.Runtime
 				return _currentChoices;
 			} 
 		}
-		internal List<Choice> generatedChoices {
+		public List<Choice> generatedChoices {
 			get {
 				return _currentChoices;
 			}
 		}
-        internal List<string> currentErrors { get; private set; }
-        internal VariablesState variablesState { get; private set; }
-        internal CallStack callStack { get; set; }
-        internal List<Runtime.Object> evaluationStack { get; private set; }
-        internal Runtime.Object divertedTargetObject { get; set; }
-        internal Dictionary<string, int> visitCounts { get; private set; }
-        internal Dictionary<string, int> turnIndices { get; private set; }
-        internal int currentTurnIndex { get; private set; }
-        internal int storySeed { get; set; }
-        internal int previousRandom { get; set; }
-        internal bool didSafeExit { get; set; }
+        public List<string> currentErrors { get; private set; }
+        public VariablesState variablesState { get; private set; }
+        public CallStack callStack { get; set; }
+        public List<Runtime.Object> evaluationStack { get; private set; }
+        public Runtime.Object divertedTargetObject { get; set; }
+        public Dictionary<string, int> visitCounts { get; private set; }
+        public Dictionary<string, int> turnIndices { get; private set; }
+        public int currentTurnIndex { get; private set; }
+        public int storySeed { get; set; }
+        public int previousRandom { get; set; }
+        public bool didSafeExit { get; set; }
 
-        internal Story story { get; set; }
+        public Story story { get; set; }
 
-        internal Path currentPath { 
+        public Path currentPath { 
             get { 
                 if (currentContentObject == null)
                     return null;
@@ -112,7 +112,7 @@ namespace Ink.Runtime
             }
         }
 
-        internal Runtime.Object currentContentObject {
+        public Runtime.Object currentContentObject {
             get {
                 return callStack.currentElement.currentObject;
             }
@@ -121,13 +121,13 @@ namespace Ink.Runtime
             }
         }
 
-        internal Container currentContainer {
+        public Container currentContainer {
             get {
                 return callStack.currentElement.currentContainer;
             }
         }
 
-        internal Runtime.Object previousContentObject { 
+        public Runtime.Object previousContentObject { 
             get {
                 return callStack.currentThread.previousContentObject;
             }
@@ -136,20 +136,20 @@ namespace Ink.Runtime
             }
         }
 
-		internal bool canContinue {
+		public bool canContinue {
 			get {
 				return currentContentObject != null && !hasError;
 			}
 		}
             
-        internal bool hasError
+        public bool hasError
         {
             get {
                 return currentErrors != null && currentErrors.Count > 0;
             }
         }
 
-        internal string currentText
+        public string currentText
         {
             get 
             {
@@ -173,7 +173,7 @@ namespace Ink.Runtime
         }
 		string _currentText;
 
-        internal List<string> currentTags 
+        public List<string> currentTags 
         {
             get 
             {
@@ -195,7 +195,7 @@ namespace Ink.Runtime
         }
 		List<string> _currentTags;
 
-        internal bool inExpressionEvaluation {
+        public bool inExpressionEvaluation {
             get {
                 return callStack.currentElement.inExpressionEvaluation;
             }
@@ -204,7 +204,7 @@ namespace Ink.Runtime
             }
         }
             
-        internal StoryState (Story story)
+        public StoryState (Story story)
         {
             this.story = story;
 
@@ -230,7 +230,7 @@ namespace Ink.Runtime
             GoToStart();
         }
 
-        internal void GoToStart()
+        public void GoToStart()
         {
             callStack.currentElement.currentContainer = story.mainContentContainer;
             callStack.currentElement.currentContentIndex = 0;
@@ -241,7 +241,7 @@ namespace Ink.Runtime
         // Runtime.Objects are treated as immutable after they've been set up.
         // (e.g. we don't edit a Runtime.Text after it's been created an added.)
         // I wonder if there's a sensible way to enforce that..??
-        internal StoryState Copy()
+        public StoryState Copy()
         {
             var copy = new StoryState(story);
 
@@ -387,12 +387,12 @@ namespace Ink.Runtime
             }
         }
             
-        internal void ResetErrors()
+        public void ResetErrors()
         {
             currentErrors = null;
         }
             
-        internal void ResetOutput()
+        public void ResetOutput()
         {
             _outputStream.Clear ();
 			OutputStreamDirty();
@@ -400,7 +400,7 @@ namespace Ink.Runtime
 
         // Push to output stream, but split out newlines in text for consistency
         // in dealing with them later.
-        internal void PushToOutputStream(Runtime.Object obj)
+        public void PushToOutputStream(Runtime.Object obj)
         {
             var text = obj as StringValue;
             if (text) {
@@ -676,7 +676,7 @@ namespace Ink.Runtime
             return null;
         }
             
-        internal bool outputStreamEndsInNewline {
+        public bool outputStreamEndsInNewline {
             get {
                 if (_outputStream.Count > 0) {
 
@@ -698,7 +698,7 @@ namespace Ink.Runtime
             }
         }
 
-        internal bool outputStreamContainsContent {
+        public bool outputStreamContainsContent {
             get {
                 foreach (var content in _outputStream) {
                     if (content is StringValue)
@@ -708,7 +708,7 @@ namespace Ink.Runtime
             }
         }
 
-        internal bool inStringEvaluation {
+        public bool inStringEvaluation {
             get {
                 for (int i = _outputStream.Count - 1; i >= 0; i--) {
                     var cmd = _outputStream [i] as ControlCommand;
@@ -721,7 +721,7 @@ namespace Ink.Runtime
             }
         }
 
-        internal void PushEvaluationStack(Runtime.Object obj)
+        public void PushEvaluationStack(Runtime.Object obj)
         {
             // Include metadata about the origin List for list values when
             // they're used, so that lower level functions can make use
@@ -749,19 +749,19 @@ namespace Ink.Runtime
             evaluationStack.Add(obj);
         }
 
-        internal Runtime.Object PopEvaluationStack()
+        public Runtime.Object PopEvaluationStack()
         {
             var obj = evaluationStack [evaluationStack.Count - 1];
             evaluationStack.RemoveAt (evaluationStack.Count - 1);
             return obj;
         }
 
-        internal Runtime.Object PeekEvaluationStack()
+        public Runtime.Object PeekEvaluationStack()
         {
             return evaluationStack [evaluationStack.Count - 1];
         }
 
-        internal List<Runtime.Object> PopEvaluationStack(int numberOfObjects)
+        public List<Runtime.Object> PopEvaluationStack(int numberOfObjects)
         {
             if(numberOfObjects > evaluationStack.Count) {
                 throw new System.Exception ("trying to pop too many objects");
@@ -797,7 +797,7 @@ namespace Ink.Runtime
         }
 
         // Don't make public since the method need to be wrapped in Story for visit counting
-        internal void SetChosenPath(Path path)
+        public void SetChosenPath(Path path)
         {
             // Changing direction, assume we need to clear current set of choices
 			_currentChoices.Clear ();
@@ -807,7 +807,7 @@ namespace Ink.Runtime
             currentTurnIndex++;
         }
 
-        internal void StartExternalFunctionEvaluation (Container funcContainer, params object[] arguments)
+        public void StartExternalFunctionEvaluation (Container funcContainer, params object[] arguments)
         {
             // We'll start a new callstack, so keep hold of the original,
             // as well as the evaluation stack so we know if the function 
@@ -831,7 +831,7 @@ namespace Ink.Runtime
             PassArgumentsToEvaluationStack (arguments);
         }
 
-        internal void PassArgumentsToEvaluationStack (params object [] arguments)
+        public void PassArgumentsToEvaluationStack (params object [] arguments)
         {
 
             // Pass arguments onto the evaluation stack
@@ -846,7 +846,7 @@ namespace Ink.Runtime
             }
         }
             
-        internal bool TryExitExternalFunctionEvaluation ()
+        public bool TryExitExternalFunctionEvaluation ()
         {
             if (_isExternalFunctionEvaluation && callStack.elements.Count == 1 && callStack.currentElement.type == PushPopType.Function) {
                 currentContentObject = null;
@@ -857,7 +857,7 @@ namespace Ink.Runtime
             return false;
         }
 
-        internal object CompleteExternalFunctionEvaluation ()
+        public object CompleteExternalFunctionEvaluation ()
         {
             
             // Do we have a returned value?
@@ -901,7 +901,7 @@ namespace Ink.Runtime
             return null;
         }
 
-        internal void AddError(string message)
+        public void AddError(string message)
         {
             // TODO: Could just add to output?
             if (currentErrors == null) {

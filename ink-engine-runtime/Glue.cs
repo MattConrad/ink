@@ -1,13 +1,13 @@
 ﻿namespace Ink.Runtime
 {
-    internal enum GlueType
+    public enum GlueType
     {
         Bidirectional,
         Left,
         Right
     }
 
-    internal class Glue : Runtime.Object
+    public class Glue : Runtime.Object
     {
         public GlueType glueType { get; set; }
 

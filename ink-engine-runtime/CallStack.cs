@@ -4,9 +4,9 @@ using System.Diagnostics;
 
 namespace Ink.Runtime
 {
-    internal class CallStack
+    public class CallStack
     {
-        internal class Element
+        public class Element
         {
             public Container currentContainer;
             public int currentContentIndex;
@@ -61,7 +61,7 @@ namespace Ink.Runtime
             }
         }
 
-        internal class Thread
+        public class Thread
         {
             public List<Element> callstack;
             public int threadIndex;

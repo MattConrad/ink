@@ -36,19 +36,19 @@ namespace Ink.Runtime
         /// </summary>
         public int index { get; set; }
 
-        internal ChoicePoint choicePoint { get; set; }
-        internal CallStack.Thread threadAtGeneration { get; set; }
-        internal int originalThreadIndex;
+        public ChoicePoint choicePoint { get; set; }
+        public CallStack.Thread threadAtGeneration { get; set; }
+        public int originalThreadIndex;
 
         // Only used temporarily for loading/saving from JSON
-        internal string originalChoicePath;
+        public string originalChoicePath;
 
 
-        internal Choice()
+        public Choice()
         {
         }
 
-		internal Choice (ChoicePoint choice)
+		public Choice (ChoicePoint choice)
 		{
 			this.choicePoint = choice;
 		}

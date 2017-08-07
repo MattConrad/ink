@@ -9,10 +9,10 @@ namespace Ink.Runtime
     /// </summary>
 	public class VariablesState : IEnumerable<string>
     {
-        internal delegate void VariableChanged(string variableName, Runtime.Object newValue);
-        internal event VariableChanged variableChangedEvent;
+        public delegate void VariableChanged(string variableName, Runtime.Object newValue);
+        public event VariableChanged variableChangedEvent;
 
-        internal bool batchObservingVariableChanges 
+        public bool batchObservingVariableChanges 
         { 
             get {
                 return _batchObservingVariableChanges;
@@ -41,7 +41,7 @@ namespace Ink.Runtime
 
         // Allow StoryState to change the current callstack, e.g. for
         // temporary function evaluation.
-        internal CallStack callStack {
+        public CallStack callStack {
             get {
                 return _callStack;
             }
@@ -99,14 +99,14 @@ namespace Ink.Runtime
 			return _globalVariables.Keys.GetEnumerator();
 		}
 
-        internal VariablesState (CallStack callStack, ListDefinitionsOrigin listDefsOrigin)
+        public VariablesState (CallStack callStack, ListDefinitionsOrigin listDefsOrigin)
         {
             _globalVariables = new Dictionary<string, Object> ();
             _callStack = callStack;
             _listDefsOrigin = listDefsOrigin;
         }
 
-        internal void CopyFrom (VariablesState toCopy)
+        public void CopyFrom (VariablesState toCopy)
         {
             _globalVariables = new Dictionary<string, Object> (toCopy._globalVariables);
 
@@ -124,7 +124,7 @@ namespace Ink.Runtime
             }
         }
             
-        internal Dictionary<string, object> jsonToken
+        public Dictionary<string, object> jsonToken
         {
             get {
                 return Json.DictionaryRuntimeObjsToJObject(_globalVariables);
@@ -134,7 +134,7 @@ namespace Ink.Runtime
             }
         }
 
-        internal Runtime.Object GetVariableWithName(string name)
+        public Runtime.Object GetVariableWithName(string name)
         {
             return GetVariableWithName (name, -1);
         }
@@ -175,12 +175,12 @@ namespace Ink.Runtime
             return varValue;
         }
 
-        internal Runtime.Object ValueAtVariablePointer(VariablePointerValue pointer)
+        public Runtime.Object ValueAtVariablePointer(VariablePointerValue pointer)
         {
             return GetVariableWithName (pointer.variableName, pointer.contextIndex);
         }
 
-        internal void Assign(VariableAssignment varAss, Runtime.Object value)
+        public void Assign(VariableAssignment varAss, Runtime.Object value)
         {
             var name = varAss.variableName;
             int contextIndex = -1;
