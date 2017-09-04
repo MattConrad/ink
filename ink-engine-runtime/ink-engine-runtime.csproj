@@ -63,10 +63,14 @@
     <Compile Include="ListDefinitionsOrigin.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="project.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="README-netcore.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="project.json" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <PropertyGroup>
+    <NuGetTargetMoniker>.NETStandard,Version=v2.0</NuGetTargetMoniker>
+  </PropertyGroup>
 </Project>
+
