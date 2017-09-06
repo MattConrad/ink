@@ -11,5 +11,8 @@
   <ItemGroup>
     <ProjectReference Include="..\ink-engine-runtime\ink-engine-runtime.csproj" />
   </ItemGroup>
-
+  
+  <PropertyGroup>
+    <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+  </PropertyGroup>
 </Project>

@@ -2,5 +2,7 @@
 
 It is basically a copy of the inklecate source code into a fresh .NET Core project, referencing a modified version of the runtime. There are a few code changes tagged with //CATE-NETCORE.
 
+There are also some IMPORTANT tweaks to the .csproj. You WILL want to note the .csproj changes.
+
 For this project to build, you also have to make a ton of accessibility changes to the runtime. See the README there for details.
 
